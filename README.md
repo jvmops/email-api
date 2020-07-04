@@ -20,8 +20,8 @@ Requirements:
 git clone https://github.com/jvmops/email-api.git \
   && cd email-api \
   && ./gradlew build \
-  && ./gradlew dockerBuildImageApi \
-  && ./gradlew dockerBuildImageSender
+  && ./gradlew :api:DockerBuildImage \
+  && ./gradlew :sender:DockerBuildImage
 
 docker-compose up -d
 ```

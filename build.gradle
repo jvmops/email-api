@@ -27,13 +27,13 @@ bootJar {
 }
 
 // Java 14, new switch, records, NullPointer messages!
-// TODO: refactor to ext {} with that map?
 
 tasks.withType(JavaCompile) {
     options.compilerArgs += "--enable-preview"
 }
 
 tasks.withType(Test) {
+    // TODO: extract this map... but where?
     jvmArgs += [
             '--enable-preview',
             '-XX:+ShowCodeDetailsInExceptionMessages'

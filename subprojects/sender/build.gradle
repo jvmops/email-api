@@ -15,7 +15,7 @@ configurations {
 }
 
 bootJar {
-    mainClassName = 'com.jvmops.workers.sender.Main'
+    mainClassName = 'com.jvmops.worker.Main'
 }
 
 pmd {
@@ -42,6 +42,3 @@ dependencies {
         exclude module: "spring-boot-starter-tomcat"
     }
 }
-
-// for github actions and seamless dockerhub integration
-libsDirName = 'app'

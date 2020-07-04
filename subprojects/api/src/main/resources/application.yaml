@@ -30,4 +30,3 @@ logging:
     org.springframework.web.servlet.mvc.support: WARN
     org.springframework: INFO
     root: INFO
-

@@ -18,15 +18,10 @@ services:
     restart: "no"
     ports:
       - 15672:15672
-      - 5671:5671
+      - 5672:5672
 
   emails-api:
     container_name: emails-api
-    build:
-      context: .
-      args:
-        - buildno
-        - gitcommithash
     image: jvmops/emails-api
     restart: "no"
     depends_on:
@@ -47,11 +42,6 @@ services:
 
   emails-sender:
     container_name: emails-sender
-    build:
-      context: .
-      args:
-        - buildno
-        - gitcommithash
     image: jvmops/emails-sender
     restart: "no"
     depends_on:
@@ -66,5 +56,5 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
-
-  # TODO: https://min.io for storing attachments
+      SPRING_MAIL_USERNAME: changeme
+      SPRING_MAIL_PASSWORD: changeme

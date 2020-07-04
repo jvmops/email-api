@@ -18,6 +18,9 @@ bootJar {
     mainClassName = 'com.jvmops.api.Main'
 }
 
+bootBuildImage {
+}
+
 pmd {
     consoleOutput = true
     toolVersion = "6.25.0"
@@ -35,13 +38,7 @@ task dockerBuildImageApi(type: DockerBuildImage) {
     dependsOn(bootJar)
 }
 
-// TODO: it wants to build too early this way
-//check.dependsOn(dockerBuildImageApi)
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 }
-
-// for github actions and seamless dockerhub integration
-libsDirName = 'app'
