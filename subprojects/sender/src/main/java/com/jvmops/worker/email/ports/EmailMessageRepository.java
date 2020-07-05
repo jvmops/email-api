@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface EmailMessageRepository {
     Optional<EmailMessage> findById(ObjectId id);
     EmailMessage emailSent(EmailMessage message);
-    void error(PendingEmailMessage emailMessage, Throwable throwable);
+    void error(PendingEmailMessage emailMessage, Exception cause);
+    void error(PendingEmailMessage emailMessage);
 
     @Getter
     class NuSuchEmailMessage extends RuntimeException {

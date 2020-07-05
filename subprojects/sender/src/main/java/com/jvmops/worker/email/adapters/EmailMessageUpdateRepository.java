@@ -29,21 +29,36 @@ class EmailMessageUpdateRepository implements EmailMessageRepository {
 
     @Override
     public EmailMessage emailSent(EmailMessage emailMessage) {
-        mongoTemplate.updateFirst(
-                new Query(Criteria
-                        .where("id").is(emailMessage.getId())),
-                new Update()
-                        .set("status", Status.SENT),
-                EmailMessage.class
-        );
-
+        changeStatus(emailMessage, Status.SENT);
         return emailMessage.toBuilder()
                 .status(Status.SENT)
                 .build();
     }
 
     @Override
-    public void error(PendingEmailMessage emailMessage, Throwable throwable) {
-        log.warn("Error events are not persisted yet");
+    public void error(PendingEmailMessage pendingMessage) {
+        changeStatus(pendingMessage, Status.ABORT);
+    }
+
+
+    @Override
+    public void error(PendingEmailMessage pendingMessage, Exception cause) {
+        changeStatus(pendingMessage, Status.ABORT);
+        record(pendingMessage, cause);
+    }
+
+    @SuppressWarnings("PMD")
+    private void record(PendingEmailMessage pendingMessage, Exception cause) {
+        log.warn("Maybe error event be persisted here???");
+    }
+
+    private void changeStatus(PendingEmailMessage emailMessage, Status status) {
+        mongoTemplate.updateFirst(
+                new Query(Criteria
+                        .where("id").is(emailMessage.getId())),
+                new Update()
+                        .set("status", status),
+                EmailMessage.class
+        );
     }
 }
